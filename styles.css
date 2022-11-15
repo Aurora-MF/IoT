@@ -1,0 +1,119 @@
+
+body {
+    background-color: black;
+}
+
+p {
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+    font-family: 'Suwannaphum', serif;
+    font-size: 20px;
+    padding: 0%;
+    
+}
+
+input {
+    background-color: #938B4B;
+    border-radius: 10px;
+    padding: 1%;
+    width: 330px;
+    height: 50px;
+    border: none;
+    font-family: 'Suwannaphum', serif;
+}
+
+input::placeholder {
+    text-align: center;
+    font-size: 17px;
+    color: #7E6161;
+}
+.mainContainer {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    justify-self: center;
+    padding: 3%;
+    border-radius: 30px;
+    row-gap: 4%;
+    background-color: #35D2F4;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 70%;
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+
+}
+.correoElect {
+    border-radius: 10px;
+    display: block;
+    background-color: #938B4B;
+    padding: 1%;
+}
+
+.password {
+    border-radius: 10px;
+    display: block;
+    background-color: #938B4B;
+    padding: 1%;
+}
+
+.login {
+    justify-content: center;
+    align-content: center;
+    border-radius: 10px;
+    display: block;
+    background-color: black;
+    padding: 0%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.register {
+    justify-content: center;
+    align-content: center;
+    border-radius: 10px;
+    display: block;
+    background-color: black;
+    padding: 0%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.correoElect p {
+    font-size: 15px;
+}
+
+.password p {
+    font-size: 15px;
+}
+
+.login p {
+    color: white;
+    font-size: 15px;
+}
+
+.register p {
+    color: white;
+    font-size: 15px;
+}
+
+.correoElect:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.password:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.login:hover {
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.register:hover {
+    cursor: pointer;
+    opacity: 0.3;
+}
