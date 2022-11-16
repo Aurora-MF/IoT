@@ -1,4 +1,3 @@
-
 body {
     background-color: black;
 }
@@ -10,10 +9,14 @@ p {
     font-family: 'Suwannaphum', serif;
     font-size: 20px;
     padding: 0%;
-    
+
 }
 
 input {
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    justify-self: center;
     background-color: #938B4B;
     border-radius: 10px;
     padding: 1%;
@@ -28,6 +31,7 @@ input::placeholder {
     font-size: 17px;
     color: #7E6161;
 }
+
 .mainContainer {
     display: grid;
     justify-content: center;
@@ -43,8 +47,44 @@ input::placeholder {
     margin-top: 10%;
     margin-left: 30%;
     margin-right: 30%;
-
 }
+
+.registerContainer {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    justify-self: center;
+    padding: 3%;
+    border-radius: 30px;
+    row-gap: 3%;
+    background-color: #35D2F4;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 69%;
+    column-gap: 2%;
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.title {
+    height: 40px;
+}
+
+.container-name {
+    display: grid;
+}
+
+.container-names {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    column-gap: 9%;
+}
+
+.input-lastname {
+    width: 150px;
+}
+
 .correoElect {
     border-radius: 10px;
     display: block;
@@ -80,6 +120,22 @@ input::placeholder {
     margin-left: 10%;
     margin-right: 10%;
 }
+
+.register {
+    justify-content: center;
+    align-content: center;
+    border-radius: 10px;
+    display: block;
+    background-color: black;
+    border: none;
+}
+
+.register p {
+    color: white;
+    font-size: 15px;
+    padding: 0%;
+}
+
 .correoElect p {
     font-size: 15px;
 }
