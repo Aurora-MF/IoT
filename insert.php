@@ -12,7 +12,7 @@
     // username => root
     // password => empty
     // database name => staff
-    $conn = mysqli_connect("localhost", "root", "", "Registration");
+    $conn = mysqli_connect("localhost", "root", "", "TilapiaTec");
 
     // Check connection
     if ($conn === false) {
@@ -65,7 +65,6 @@
         } else {
             $birthday = trim(htmlspecialchars($_POST["birthday"]));
         }
-        $id++;
     }
     for ($i = 0; $i < count($errors); $i++) {
         if (strlen($errors[$i]) > 0) {
