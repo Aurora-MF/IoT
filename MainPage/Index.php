@@ -1,37 +1,45 @@
-<?php
-    include ("conexion.php");
-    $con = conectar();    
-?>
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tilapia Tec</title>
-    <link rel="stylesheet" href="style.css">
+    <title>TilapiaTecLogin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="register" href="register.html">
+    <link rel="prueba" href="prueba.html">
+    <link rel="fetch" href="fetchRegistros.php">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Suwannaphum&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div>
-    
-        <img src="Logo.png" alt="Logo" class="logo">
-        
-        
-        <form class="login">
-          <h1>Iniciar Sesión</h1> <br><br>
-          <p> Usuario <input type="text" placeholder="Ingrese su usuario" name="usuario">  </p> <br>
-          <p> Contraseña <input type="password" placeholder="Ingrese su contraseña" name="usuario"> </p>  <br>
 
-          <input type="submit" name="" id="" value="Ingresar">
-           <br>
+    <!-- Container of the menu-->
 
-           <a href="registrarse.html">Registrarse</a>
-           <br><br>
-  
-          
-        </form>
-
-    </div><!--No quitar este div-->
+    <form action="fetchRegistros.php" method="post">
+        <div class="mainContainer">
+            <div>
+                <p>Tilapia Tec</p>
+            </div>
+            <div class="correoElect">
+                <label for="mailLogin"></label>
+                <input type="email" id="mailLogin" name="mailLogin" placeholder="Correo Electronico" required>
+            </div>
+            <div class="password">
+                <label for="pswdLogin"></label>
+                <input type="password" id="pswdLogin" name="pswdLogin" placeholder="Contraseña" required>
+            </div>
+            <button class="login" type="submit">
+                <p>Login</p>
+            </button>
+            <div class="register">
+                <a href="register.html">
+                    <p>Register</p>
+                </a>
+            </div>
+        </div>
+    </form>
+    </div>
 </body>
-</html>
 
+</html>

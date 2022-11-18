@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>TilapiaTecLogin</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="register" href="register.html">
+        <link rel="fetch" href="fetchRegistros.php">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Suwannaphum&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <!-- Container of the menu-->
+    
+    <form class="">
+        <div class="mainContainer">
+            <div>
+                <p>Tilapia Tec</p>
+            </div>
+            <div class="correoElect">
+                <input type="email" name="correo" placeholder="Correo Electronico">
+            </div>
+            <div class="password">
+                <input type="password" name="contraseña" placeholder="Contraseña">
+            </div>
+            <button class="login">
+                <p>Login</p>
+                <?php
+                    $conn = mysqli_connect("localhost", "root", "", "TilapiaTec");
+                    if ($conn === false) {
+                        die("ERROR: Could not connect. "
+                            . mysqli_connect_error());
+                    }
+                    $sql = "SELECT firstName, firstLast, secondLast, mail, gender, birthday FROM Registros";
+                    $result = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        // output data of each row
+                        if($_POST["correo"] == $row["mail"] && $_POST["contraseña"] == $row["pswd"]){
+                            // Return to main page
+                            echo "siiiiiiuu";
+                        }
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo " - Name: " . $row["firstName"] . " " . $row["firstLast"] . "<br>";
+                        }
+                    } else {
+                        echo "0 results";
+                    }
+                    ?php>
+            </button>
+            <div class="register">
+                <a href="register.html">
+                    <p>Register</p>
+                </a>
+            </div>
+        </div>
+    </form>
+
+    </div>
+</body>
+</html>
