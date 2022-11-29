@@ -119,3 +119,15 @@ a{
     border-radius: 5px; 
     text-align: center;
   }
+h1.tt{
+    font-size: 30px;
+    text-align: center;
+}
+p.ttp{
+    text-align: center;
+    padding: 0;
+
+}
+p.text{
+    font-size: 18px;
+}
