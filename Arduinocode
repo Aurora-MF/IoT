@@ -1,0 +1,147 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <Wire.h>
+//#include <ESPAsyncWebServer.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#define LEDAZUL 2
+#define LEDROJO 5
+const char* ssid     = "iYibi";
+const char* password = "yibubertho";
+
+IPAddress ip(172,20,10,2);
+IPAddress dns(172,20,10,1);
+IPAddress gateway(172,20,10,1);
+IPAddress subnet(255, 255, 255, 0);
+
+// REPLACE with your Domain name and URL path or IP address with path
+const char* serverName = "http://172.20.10.12/IoT-main/MainPage/post-esp-data.php";
+
+// Keep this API Key value to be compatible with the PHP code provided in the project page. 
+// If you change the apiKeyValue value, the PHP file /post-esp-data.php also needs to have the same key 
+String sensorName = "DS18B20";
+String sensorLocation = "TecMty";
+
+// GPIO where the DS18B20 is connected to
+const int oneWireBus = 4;
+
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(oneWireBus);
+
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+String readTempCelsius = "";
+String readTempFahrenheit = "";
+
+void setup() {
+  Serial.begin(115200);
+
+  WiFi.config(ip, gateway, subnet, dns);
+  WiFi.begin(ssid, password);
+
+  Serial.println("Connecting");
+  
+  while(WiFi.status() != WL_CONNECTED) { 
+    delay(500);
+    Serial.print(".");
+  }
+    pinMode(LEDAZUL,OUTPUT);
+  pinMode(LEDROJO,OUTPUT);
+  Serial.println("Connected to the WiFi network");
+  if (WiFi.status() == WL_CONNECTED){
+    digitalWrite(LEDAZUL,HIGH);
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+  sensors.begin();
+}
+
+String readDSTemperatureC() {
+  // Call sensors.requestTemperatures() to issue a global temperature and Requests to all devices on the bus
+  sensors.requestTemperatures(); 
+  float tempC = sensors.getTempCByIndex(0);
+
+  if(tempC == -127.00) {
+    Serial.println("Failed to read from DS18B20 sensor");
+    return "--";
+  } else {
+    Serial.print("Temperature Celsius: ");
+    Serial.println(tempC); 
+    if (tempC > 35 || tempC < 22){
+    digitalWrite(LEDROJO,HIGH);
+  }
+  }
+  return String(tempC);
+}
+
+String readDSTemperatureF() {
+  // Call sensors.requestTemperatures() to issue a global temperature and Requests to all devices on the bus
+  sensors.requestTemperatures(); 
+  float tempF = sensors.getTempFByIndex(0);
+
+  if(int(tempF) == -196){
+    Serial.println("Failed to read from DS18B20 sensor");
+    return "--";
+  } else {
+    Serial.print("Temperature Fahrenheit: ");
+    Serial.println(tempF);
+  }
+  return String(tempF);
+}
+
+
+void loop() {
+  if(WiFi.status()== WL_CONNECTED){
+    WiFiClient client;
+    HTTPClient http;
+  // Start up the DS18B20 library
+    readTempCelsius = readDSTemperatureC();
+    readTempFahrenheit = readDSTemperatureF();
+
+    // Your Domain name with URL path or IP address with path
+    http.begin(client, serverName);
+    
+    // Specify content-type header
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    // Prepare your HTTP POST request data
+    String httpRequestData = "Sensor=" + sensorName
+                          + "&Location=" + sensorLocation + "&Celsius=" + readTempCelsius
+                          + "&Fahrenheit=" + readTempFahrenheit;
+    Serial.print("httpRequestData: ");
+    Serial.println(httpRequestData);
+
+    // You can comment the httpRequestData variable above
+    // then, use the httpRequestData variable below (for testing purposes without the BME280 sensor)
+    //String httpRequestData = "Sensor=DS18B20&Location=TecMty&Celsius=24.75&Fahrenheit=49.54";
+    int httpResponseCode = http.POST(httpRequestData);
+
+    // Send HTTP POST request
+    // int httpResponseCode = http.POST(httpRequestData);
+    // If you need an HTTP request with a content type: text/plain
+    //http.addHeader("Content-Type", "text/plain");
+    //int httpResponseCode = http.POST("Hello, World!");
+    
+    // If you need an HTTP request with a content type: application/json, use the following:
+    //http.addHeader("Content-Type", "application/json");
+    //int httpResponseCode = http.POST("{\"value1\":\"19\",\"value2\":\"67\",\"value3\":\"78\"}");
+        
+    if (httpResponseCode>0) {
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+    }
+    else {
+      Serial.print("Error code: ");
+      Serial.println(httpResponseCode);
+    }
+    // Free resources
+    http.end();
+  }
+  else {
+    Serial.println("WiFi Disconnected");
+  }
+  //Send an HTTP POST request every 30 seconds
+  delay(600000);
+
+}
